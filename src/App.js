@@ -1,8 +1,22 @@
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import firebase from 'firebase';
 
+import { askForPermissioToReceiveNotifications } from './push-notification';
 class App extends Component {
+componentDidMount() {
+  window.addEventListener('load', this.handlePushNoti);
+}
+handlePushNoti = () => {
+const messaging = firebase.messaging();
+
+  messaging.onMessage(function(payload) {
+    console.log(payload);
+     //TODO
+});
+}
   render() {
     return (
       <div className="App">
@@ -20,6 +34,9 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <button onClick={askForPermissioToReceiveNotifications} >
+          Click here to receive notifications
+        </button>
       </div>
     );
   }
